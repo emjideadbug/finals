@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
+import { useMemo } from 'react';
 
 // Dynamically import ApexCharts to avoid SSR issues
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
@@ -37,9 +38,10 @@ export default function DashboardPage() {
   const { data: stats, isLoading } = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
-      const [users, posts] = await Promise.all([
-        fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json()),
-        fetch('https://jsonplaceholder.typicode.com/posts').then(res => res.json())
+      const [users, posts, comments] = await Promise.all([
+        fetch('/api/users').then(res => res.json()),
+        fetch('/api/posts').then(res => res.json()),
+        fetch('/api/comments').then(res => res.json())
       ]);
 
       // Calculate posts per user
@@ -54,6 +56,7 @@ export default function DashboardPage() {
       return {
         totalUsers: users.length,
         totalPosts: posts.length,
+        totalComments: comments.length,
         averagePostsPerUser: posts.length / users.length,
         topUsers: postsPerUser
       };
@@ -63,13 +66,27 @@ export default function DashboardPage() {
     refetchIntervalInBackground: true // Continue refetching even when tab is not active
   });
 
-  const chartOptions: ApexOptions = {
+  // Memoize chart options to prevent unnecessary re-renders
+  const chartOptions = useMemo<ApexOptions>(() => ({
     chart: {
       type: 'bar',
       toolbar: {
         show: false
       },
-      background: 'transparent'
+      background: 'transparent',
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 350
+        }
+      }
     },
     theme: {
       mode: 'dark'
@@ -101,12 +118,13 @@ export default function DashboardPage() {
     grid: {
       borderColor: '#404040'
     }
-  };
+  }), [stats?.topUsers]);
 
-  const chartSeries = [{
+  // Memoize chart series to prevent unnecessary re-renders
+  const chartSeries = useMemo(() => [{
     name: 'Posts',
     data: stats?.topUsers.map((user: UserPost) => user.posts) || []
-  }];
+  }], [stats?.topUsers]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
@@ -133,8 +151,8 @@ export default function DashboardPage() {
         </Card>
 
         {isLoading ? (
-          <div className="grid gap-4 md:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
+          <div className="grid gap-4 md:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
               <Card key={i} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
                 <CardContent className="p-6">
                   <Skeleton className="h-8 w-3/4 bg-white/20 mb-2" />
@@ -145,7 +163,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 md:grid-cols-3 mb-8">
+            <div className="grid gap-4 md:grid-cols-4 mb-8">
               <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold text-white mb-2">Total Users</h3>
@@ -156,6 +174,12 @@ export default function DashboardPage() {
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold text-white mb-2">Total Posts</h3>
                   <p className="text-3xl font-bold text-green-400">{stats?.totalPosts}</p>
+                </CardContent>
+              </Card>
+              <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-white mb-2">Total Comments</h3>
+                  <p className="text-3xl font-bold text-yellow-400">{stats?.totalComments}</p>
                 </CardContent>
               </Card>
               <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">

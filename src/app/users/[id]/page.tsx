@@ -11,12 +11,20 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   const resolvedParams = use(params);
   const { data: userData, isLoading: isLoadingUser, error: userError } = useQuery({
     queryKey: ['user', resolvedParams.id],
-    queryFn: () => fetch(`https://jsonplaceholder.typicode.com/users/${resolvedParams.id}`).then(res => res.json()),
+    queryFn: () => fetch(`/api/users/${resolvedParams.id}`).then(res => {
+      if (!res.ok) throw new Error('User not found');
+      return res.json();
+    }),
   });
 
   const { data: postsData, isLoading: isLoadingPosts } = useQuery({
     queryKey: ['user-posts', resolvedParams.id],
-    queryFn: () => fetch(`https://jsonplaceholder.typicode.com/posts?userId=${resolvedParams.id}`).then(res => res.json()),
+    queryFn: () => fetch(`/api/posts?userId=${resolvedParams.id}`).then(res => res.json()),
+  });
+
+  const { data: commentsData } = useQuery({
+    queryKey: ['comments'],
+    queryFn: () => fetch('/api/comments').then(res => res.json()),
   });
 
   if (userError) {
@@ -26,7 +34,12 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
             <CardContent className="p-6">
               <div className="text-red-400 text-center">
-                Error loading user data. Please try again later.
+                User not found
+              </div>
+              <div className="mt-4 flex justify-center">
+                <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                  <Link href="/users">Back to Users</Link>
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -88,7 +101,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
               </div>
             </CardContent>
           </Card>
-        ) : (
+        ) : userData ? (
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
             <CardContent className="p-6">
               <div className="space-y-4">
@@ -133,7 +146,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
               </div>
             </CardContent>
           </Card>
-        )}
+        ) : null}
 
         <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
           <CardHeader>
@@ -149,17 +162,38 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="space-y-4">
-                {postsData.map((post: any) => (
-                  <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
-                    <CardContent className="p-4">
-                      <h3 className="text-xl font-semibold text-white mb-2">{post.title}</h3>
-                      <p className="text-gray-300">{post.body}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+            ) : postsData?.length > 0 ? (
+              <div className="space-y-6">
+                {postsData.map((post: any) => {
+                  const postComments = commentsData?.filter((comment: any) => comment.postId === post.id) || [];
+                  return (
+                    <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-2 mb-3 bg-gray-700/30 p-2 rounded-lg">
+                          <span className="text-sm text-gray-300">Posted by:</span>
+                          <span className="text-sm font-bold text-blue-400">{userData?.name}</span>
+                        </div>
+                        <h3 className="text-xl font-semibold text-white mb-2">{post.title}</h3>
+                        <p className="text-gray-300">{post.body}</p>
+                        
+                        {postComments.length > 0 && (
+                          <div className="mt-4 space-y-3">
+                            <h4 className="text-lg font-semibold text-white">Comments</h4>
+                            {postComments.map((comment: any) => (
+                              <div key={comment.id} className="bg-gray-700/30 p-3 rounded-lg">
+                                <p className="text-sm font-semibold text-blue-400">{comment.name}</p>
+                                <p className="text-gray-300">{comment.body}</p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
+            ) : (
+              <p className="text-gray-300 text-center">No posts found for this user.</p>
             )}
           </CardContent>
         </Card>
