@@ -51,12 +51,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   const getMapUrl = (address: any) => {
     if (!address) return '';
     const query = encodeURIComponent(formatAddress(address));
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    if (!apiKey) {
-      console.warn('Google Maps API key is not configured');
-      return '';
-    }
-    return `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${query}`;
+    return `https://www.google.com/maps?q=${query}&output=embed`;
   };
 
   return (
