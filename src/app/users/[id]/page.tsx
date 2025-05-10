@@ -69,7 +69,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
         <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl mb-8">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold text-white drop-shadow-lg text-center">
@@ -98,9 +98,9 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
                 <Skeleton className="h-8 w-3/4 bg-white/20" />
                 <Skeleton className="h-4 w-1/2 bg-white/20" />
                 <Skeleton className="h-4 w-2/3 bg-white/20" />
-              </div>
+        </div>
             </CardContent>
-          </Card>
+      </Card>
         ) : userData ? (
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
             <CardContent className="p-6">

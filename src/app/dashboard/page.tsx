@@ -199,16 +199,16 @@ export default function DashboardPage() {
               <CardContent>
                 <div className="h-[400px]">
                   {typeof window !== 'undefined' && (
-                    <Chart
+        <Chart
                       options={chartOptions}
                       series={chartSeries}
-                      type="bar"
+          type="bar"
                       height="100%"
-                    />
+        />
                   )}
                 </div>
               </CardContent>
-            </Card>
+      </Card>
           </>
         )}
       </div>
