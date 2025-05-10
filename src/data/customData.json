@@ -56,8 +56,8 @@
       "address": {
         "country": "Philippines",
         "province": "Sorsogon",
-        "municipality": "Matnog",
-        "barangay": "Sinibaran",
+        "municipality": "Bulan",
+        "barangay": "Otavi",
         "zipcode": "4706",
         "geo": {
           "lat": "12.6714",
@@ -121,6 +121,30 @@
       "userId": 4,
       "title": "Barcelona's Charm",
       "body": "The sunset in Barcelona paints the sky in colors you won't find anywhere else. It's nature's daily masterpiece."
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "title": "Tech Innovation in Sorsogon",
+      "body": "Witnessing the growth of technology in our province. From traditional businesses to digital transformation, Sorsogon is embracing the future."
+    },
+    {
+      "id": 6,
+      "userId": 2,
+      "title": "Matnog's Seafood Delights",
+      "body": "A culinary journey through Matnog's best seafood restaurants. Fresh catch, authentic flavors, and unforgettable dining experiences."
+    },
+    {
+      "id": 7,
+      "userId": 3,
+      "title": "Digital Solutions for Local Businesses",
+      "body": "How technology is helping local businesses in Sorsogon thrive in the digital age. Success stories and future opportunities."
+    },
+    {
+      "id": 8,
+      "userId": 4,
+      "title": "Barcelona's Community Spirit",
+      "body": "The strong sense of community in Barcelona makes it more than just a place to live. It's a place to belong."
     }
   ],
   "comments": [
@@ -144,6 +168,55 @@
       "name": "Mac Lean Senosin",
       "email": "macsen@example.com",
       "body": "The sunset there is magical! I visit Barcelona just for that view."
+    },
+    {
+      "id": 4,
+      "postId": 2,
+      "name": "Mark John Ernacio",
+      "email": "markjohn@example.com",
+      "body": "The beaches in Matnog are absolutely stunning! Great post!"
+    },
+    {
+      "id": 5,
+      "postId": 3,
+      "name": "Jan Immanuel Ical",
+      "email": "janical@example.com",
+      "body": "The festivals in Bulan are something everyone should experience at least once."
+    },
+    {
+      "id": 6,
+      "postId": 5,
+      "name": "Dea Gliponeo",
+      "email": "deaglip@example.com",
+      "body": "It's amazing to see how technology is transforming our province!"
+    },
+    {
+      "id": 7,
+      "postId": 6,
+      "name": "Mac Lean Senosin",
+      "email": "macsen@example.com",
+      "body": "The seafood in Matnog is the best I've ever tasted!"
+    },
+    {
+      "id": 8,
+      "postId": 7,
+      "name": "Mark John Ernacio",
+      "email": "markjohn@example.com",
+      "body": "Great insights on digital transformation! This will help many local businesses."
+    },
+    {
+      "id": 9,
+      "postId": 8,
+      "name": "Jan Immanuel Ical",
+      "email": "janical@example.com",
+      "body": "The community spirit in Barcelona is what makes it special."
+    },
+    {
+      "id": 10,
+      "postId": 5,
+      "name": "Dea Gliponeo",
+      "email": "deaglip@example.com",
+      "body": "Looking forward to more tech innovations in our province!"
     }
   ]
 } 

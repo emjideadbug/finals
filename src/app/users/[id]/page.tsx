@@ -15,6 +15,14 @@ export default function UserProfilePage() {
     queryFn: () => fetch(`/api/users/${userId}`).then(res => res.json()),
   });
 
+  const getMapUrl = (address: any) => {
+    if (!address) return '';
+    const query = encodeURIComponent(
+      `${address.barangay}, ${address.municipality}, ${address.province}, ${address.country}`
+    );
+    return `https://www.google.com/maps?q=${query}&output=embed`;
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
@@ -76,10 +84,25 @@ export default function UserProfilePage() {
                 {user.address && (
                   <div className="mt-4">
                     <h3 className="text-xl font-semibold text-white mb-2">Address</h3>
-                    <p className="text-gray-300"><span className="font-semibold">Street:</span> {user.address.street}</p>
-                    <p className="text-gray-300"><span className="font-semibold">Suite:</span> {user.address.suite}</p>
-                    <p className="text-gray-300"><span className="font-semibold">City:</span> {user.address.city}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Country:</span> {user.address.country}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Province:</span> {user.address.province}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Municipality:</span> {user.address.municipality}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Barangay:</span> {user.address.barangay}</p>
                     <p className="text-gray-300"><span className="font-semibold">Zipcode:</span> {user.address.zipcode}</p>
+                    <div className="mt-4">
+                      <h4 className="text-lg font-semibold text-white mb-2">Location</h4>
+                      <div className="w-full h-64 rounded-lg overflow-hidden">
+                        <iframe
+                          src={getMapUrl(user.address)}
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
                 {user.company && (

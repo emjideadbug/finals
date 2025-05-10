@@ -12,6 +12,11 @@ export default function PostsPage() {
     queryFn: () => fetch('/api/posts').then(res => res.json()),
   });
 
+  const { data: users } = useQuery({
+    queryKey: ['users'],
+    queryFn: () => fetch('/api/users').then(res => res.json()),
+  });
+
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
@@ -55,7 +60,7 @@ export default function PostsPage() {
           </CardContent>
         </Card>
 
-      <div className="grid gap-4">
+        <div className="grid gap-4">
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => (
               <Card key={i} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
@@ -68,19 +73,26 @@ export default function PostsPage() {
               </Card>
             ))
           ) : (
-            posts?.map((post: any) => (
-              <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    <h2 className="text-2xl font-bold text-white">{post.title}</h2>
-                    <p className="text-gray-300">{post.body}</p>
-                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                      <Link href={`/posts/${post.id}`}>Read More</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-          </Card>
-            ))
+            posts?.map((post: any) => {
+              const author = users?.find((user: any) => user.id === post.userId);
+              return (
+                <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 mb-3 bg-gray-700/30 p-2 rounded-lg">
+                        <span className="text-sm text-gray-300">Posted by:</span>
+                        <span className="text-sm font-bold text-blue-400">{author?.name}</span>
+                      </div>
+                      <h2 className="text-2xl font-bold text-white">{post.title}</h2>
+                      <p className="text-gray-300">{post.body}</p>
+                      <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                        <Link href={`/posts/${post.id}`}>Read More</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })
           )}
         </div>
       </div>
