@@ -68,6 +68,29 @@
         "catchPhrase": "Excellence in service",
         "bs": "Business Solutions"
       }
+    },
+    {
+      "id": 4,
+      "name": "Mark John Ernacio",
+      "username": "markj_ernacio",
+      "email": "mark.ernacio@example.com",
+      "address": {
+        "street": "Poblacion Central",
+        "suite": "Barcelona",
+        "city": "Sorsogon",
+        "zipcode": "4712",
+        "geo": {
+          "lat": "12.8683",
+          "lng": "124.1417"
+        }
+      },
+      "phone": "0912-345-6789",
+      "website": "markernacio.com",
+      "company": {
+        "name": "Ernacio Enterprises",
+        "catchPhrase": "Making dreams reality",
+        "bs": "Business Development"
+      }
     }
   ],
   "posts": [
@@ -88,6 +111,12 @@
       "userId": 3,
       "title": "Bulan's Cultural Heritage",
       "body": "The rich cultural heritage of Bulan, from its traditional festivals to its local cuisine, makes it a unique place to experience."
+    },
+    {
+      "id": 4,
+      "userId": 4,
+      "title": "Barcelona's Charm",
+      "body": "The sunset in Barcelona paints the sky in colors you won't find anywhere else. It's nature's daily masterpiece."
     }
   ],
   "comments": [
@@ -104,6 +133,13 @@
       "name": "Dea Glipones",
       "email": "deaglip@example.com",
       "body": "I miss the food there! Especially the fresh seafood."
+    },
+    {
+      "id": 3,
+      "postId": 4,
+      "name": "Mac Lean Senosin",
+      "email": "macsen@example.com",
+      "body": "The sunset there is magical! I visit Barcelona just for that view."
     }
   ]
 } 
