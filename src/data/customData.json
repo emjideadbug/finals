@@ -29,8 +29,8 @@
       "username": "janical",
       "email": "janical@example.com",
       "address": {
-        "street": "Main Street",
-        "suite": "Apt 123",
+        "street": "Sinibaran",
+        "suite": "Barangay",
         "city": "Matnog",
         "zipcode": "4708",
         "geo": {
@@ -52,8 +52,8 @@
       "username": "deaglip",
       "email": "deaglip@example.com",
       "address": {
-        "street": "Central Avenue",
-        "suite": "Unit 456",
+        "street": "A. Bonifacio",
+        "suite": "Barangay",
         "city": "Bulan",
         "zipcode": "4706",
         "geo": {
@@ -76,8 +76,8 @@
       "email": "mark.ernacio@example.com",
       "address": {
         "street": "Poblacion Central",
-        "suite": "Barcelona",
-        "city": "Sorsogon",
+        "suite": "Barangay",
+        "city": "Barcelona",
         "zipcode": "4712",
         "geo": {
           "lat": "12.8683",
