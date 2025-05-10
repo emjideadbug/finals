@@ -26,9 +26,9 @@ export default function UsersPage() {
   }
 
   if (error) {
-    return (
+  return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-        <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
             <CardContent className="p-6">
               <p className="text-red-400 text-center">Failed to load users.</p>
@@ -84,8 +84,8 @@ export default function UsersPage() {
                       </Button>
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+          </Card>
+        ))}
             </div>
           </CardContent>
         </Card>

@@ -100,14 +100,14 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
             ) : (
               <div className="space-y-4">
                 {comments?.map((comment: any) => (
-                  <Card key={comment.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
-                    <CardContent className="p-4">
-                      <div className="space-y-2">
-                        <h3 className="text-lg font-semibold text-white">{comment.name}</h3>
-                        <p className="text-gray-300">{comment.body}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <div key={comment.id} className="bg-gray-700/30 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-sm font-semibold text-blue-400">
+                        {comment.name}
+                      </span>
+                    </div>
+                    <p className="text-gray-300">{comment.body}</p>
+                  </div>
                 ))}
               </div>
             )}

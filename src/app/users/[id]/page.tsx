@@ -1,46 +1,27 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { use } from 'react';
+import Link from 'next/link';
 
-export default function UserDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const { data: userData, isLoading: isLoadingUser, error: userError } = useQuery({
-    queryKey: ['user', resolvedParams.id],
-    queryFn: () => fetch(`/api/users/${resolvedParams.id}`).then(res => {
-      if (!res.ok) throw new Error('User not found');
-      return res.json();
-    }),
+export default function UserProfilePage() {
+  const params = useParams();
+  const userId = params.id;
+
+  const { data: user, isLoading, error } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetch(`/api/users/${userId}`).then(res => res.json()),
   });
 
-  const { data: postsData, isLoading: isLoadingPosts } = useQuery({
-    queryKey: ['user-posts', resolvedParams.id],
-    queryFn: () => fetch(`/api/posts?userId=${resolvedParams.id}`).then(res => res.json()),
-  });
-
-  const { data: commentsData } = useQuery({
-    queryKey: ['comments'],
-    queryFn: () => fetch('/api/comments').then(res => res.json()),
-  });
-
-  if (userError) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
         <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
             <CardContent className="p-6">
-              <div className="text-red-400 text-center">
-                User not found
-              </div>
-              <div className="mt-4 flex justify-center">
-                <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                  <Link href="/users">Back to Users</Link>
-                </Button>
-              </div>
+              <p className="text-gray-300 text-center">Loading user profile...</p>
             </CardContent>
           </Card>
         </div>
@@ -48,17 +29,23 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
     );
   }
 
-  const getMapUrl = (address: any) => {
-    if (!address) return '';
-    const query = encodeURIComponent(
-      `${address.barangay}, ${address.municipality}, ${address.province}, ${address.country}`
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
+        <div className="max-w-2xl mx-auto">
+          <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
+            <CardContent className="p-6">
+              <p className="text-red-400 text-center">Failed to load user profile.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     );
-    return `https://www.google.com/maps?q=${query}&output=embed`;
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl mb-8">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold text-white drop-shadow-lg text-center">
@@ -66,124 +53,45 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-lg font-semibold shadow-lg transition-all duration-300">
                 <Link href="/">Home</Link>
               </Button>
               <Button asChild className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-lg font-semibold shadow-lg transition-all duration-300">
                 <Link href="/users">Users</Link>
               </Button>
+              <Button asChild className="w-full sm:w-auto bg-yellow-600 hover:bg-yellow-700 text-lg font-semibold shadow-lg transition-all duration-300">
+                <Link href="/posts">Posts</Link>
+              </Button>
               <Button asChild className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-lg font-semibold shadow-lg transition-all duration-300">
                 <Link href="/dashboard">Dashboard</Link>
               </Button>
             </div>
-          </CardContent>
-        </Card>
-
-        {isLoadingUser ? (
-          <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
-            <CardContent className="p-6">
+            <div className="bg-gray-800/50 rounded-lg p-6 shadow-lg">
+              <h2 className="text-2xl font-bold text-white mb-4">{user.name}</h2>
               <div className="space-y-4">
-                <Skeleton className="h-8 w-3/4 bg-white/20" />
-                <Skeleton className="h-4 w-1/2 bg-white/20" />
-                <Skeleton className="h-4 w-2/3 bg-white/20" />
-              </div>
-            </CardContent>
-          </Card>
-        ) : userData ? (
-          <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-white">{userData.name}</h2>
-                  <p className="text-gray-300">@{userData.username}</p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Contact Information</h3>
-                  <p className="text-gray-300">Email: {userData.email}</p>
-                  <p className="text-gray-300">Phone: {userData.phone}</p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Address</h3>
-                  <p className="text-gray-300">
-                    {userData.address && (
-                      <>
-                        Barangay: {userData.address.barangay}<br />
-                        Municipality: {userData.address.municipality}<br />
-                        Province: {userData.address.province}<br />
-                        Country: {userData.address.country}
-                      </>
-                    )}
-                  </p>
-                </div>
-                {userData.address && (
+                <p className="text-gray-300"><span className="font-semibold">Email:</span> {user.email}</p>
+                <p className="text-gray-300"><span className="font-semibold">Phone:</span> {user.phone}</p>
+                <p className="text-gray-300"><span className="font-semibold">Website:</span> {user.website}</p>
+                {user.address && (
                   <div className="mt-4">
-                    <h3 className="text-lg font-semibold text-white mb-2">Location</h3>
-                    <div className="w-full h-64 rounded-lg overflow-hidden">
-                      <iframe
-                        src={getMapUrl(userData.address)}
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                      />
-                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">Address</h3>
+                    <p className="text-gray-300"><span className="font-semibold">Street:</span> {user.address.street}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Suite:</span> {user.address.suite}</p>
+                    <p className="text-gray-300"><span className="font-semibold">City:</span> {user.address.city}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Zipcode:</span> {user.address.zipcode}</p>
+                  </div>
+                )}
+                {user.company && (
+                  <div className="mt-4">
+                    <h3 className="text-xl font-semibold text-white mb-2">Company</h3>
+                    <p className="text-gray-300"><span className="font-semibold">Name:</span> {user.company.name}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Catch Phrase:</span> {user.company.catchPhrase}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Business:</span> {user.company.bs}</p>
                   </div>
                 )}
               </div>
-            </CardContent>
-          </Card>
-        ) : null}
-
-        <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-white">Posts</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isLoadingPosts ? (
-              <div className="space-y-4">
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="space-y-2">
-                    <Skeleton className="h-6 w-3/4 bg-white/20" />
-                    <Skeleton className="h-4 w-full bg-white/20" />
-                  </div>
-                ))}
-              </div>
-            ) : postsData?.length > 0 ? (
-              <div className="space-y-6">
-                {postsData.map((post: any) => {
-                  const postComments = commentsData?.filter((comment: any) => comment.postId === post.id) || [];
-                  return (
-                    <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-2 mb-3 bg-gray-700/30 p-2 rounded-lg">
-                          <span className="text-sm text-gray-300">Posted by:</span>
-                          <span className="text-sm font-bold text-blue-400">{userData?.name}</span>
-                        </div>
-                        <h3 className="text-xl font-semibold text-white mb-2">{post.title}</h3>
-                        <p className="text-gray-300">{post.body}</p>
-                        
-                        {postComments.length > 0 && (
-                          <div className="mt-4 space-y-3">
-                            <h4 className="text-lg font-semibold text-white">Comments</h4>
-                            {postComments.map((comment: any) => (
-                              <div key={comment.id} className="bg-gray-700/30 p-3 rounded-lg">
-                                <p className="text-sm font-semibold text-blue-400">{comment.name}</p>
-                                <p className="text-gray-300">{comment.body}</p>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            ) : (
-              <p className="text-gray-300 text-center">No posts found for this user.</p>
-            )}
+            </div>
           </CardContent>
         </Card>
       </div>

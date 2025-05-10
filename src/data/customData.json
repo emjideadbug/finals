@@ -48,8 +48,9 @@
         "bs": "Creative Solutions"
       }
     },
-    {"id": 3,
-      "name": "Dea Glipneo",
+    {
+      "id": 3,
+      "name": "Dea Gliponeo",
       "username": "deaglip",
       "email": "deaglip@gmail.com",
       "address": {
@@ -133,7 +134,7 @@
     {
       "id": 2,
       "postId": 1,
-      "name": "Dea Glipones",
+      "name": "Dea Gliponeo",
       "email": "deaglip@example.com",
       "body": "I miss the food there! Especially the fresh seafood."
     },
