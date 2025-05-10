@@ -15,6 +15,11 @@ export default function UserProfilePage() {
     queryFn: () => fetch(`/api/users/${userId}`).then(res => res.json()),
   });
 
+  const { data: posts } = useQuery({
+    queryKey: ['posts'],
+    queryFn: () => fetch('/api/posts').then(res => res.json()),
+  });
+
   const getMapUrl = (address: any) => {
     if (!address) return '';
     const query = encodeURIComponent(
@@ -51,10 +56,13 @@ export default function UserProfilePage() {
     );
   }
 
+  // Filter posts for this user
+  const userPosts = posts?.filter((post: any) => post.userId === parseInt(userId as string)) || [];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-      <div className="max-w-4xl mx-auto">
-        <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl mb-8">
+      <div className="max-w-2xl mx-auto">
+        <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold text-white drop-shadow-lg text-center">
               User Profile
@@ -113,6 +121,28 @@ export default function UserProfilePage() {
                     <p className="text-gray-300"><span className="font-semibold">Business:</span> {user.company.bs}</p>
                   </div>
                 )}
+
+                {/* User's Posts Section */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-semibold text-white mb-4">Posts by {user.name}</h3>
+                  {userPosts.length > 0 ? (
+                    <div className="space-y-4">
+                      {userPosts.map((post: any) => (
+                        <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 hover:shadow-xl transition-all duration-300">
+                          <CardContent className="p-4">
+                            <h4 className="text-lg font-semibold text-white mb-2">{post.title}</h4>
+                            <p className="text-gray-300 mb-4">{post.body}</p>
+                            <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                              <Link href={`/posts/${post.id}`}>Read More</Link>
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-400 text-center">No posts found</p>
+                  )}
+                </div>
               </div>
             </div>
           </CardContent>

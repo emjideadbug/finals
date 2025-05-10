@@ -60,7 +60,7 @@ export default function PostsPage() {
           </CardContent>
         </Card>
 
-        <div className="grid gap-4">
+      <div className="grid gap-4">
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => (
               <Card key={i} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
@@ -90,7 +90,7 @@ export default function PostsPage() {
                       </Button>
                     </div>
                   </CardContent>
-                </Card>
+          </Card>
               );
             })
           )}
