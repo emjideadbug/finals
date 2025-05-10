@@ -2,51 +2,72 @@
   "users": [
     {
       "id": 1,
-      "name": "Mark John Ernacio",
-      "username": "markj_ernacio",
-      "email": "mark.ernacio@example.com",
+      "name": "Mac Lean Senosin",
+      "username": "maclean",
+      "email": "maclean@example.com",
       "address": {
-        "street": "Poblacion Central, Barcelona",
-        "suite": "Sorsogon",
-        "city": "Philippines"
+        "street": "Imelda Aquino",
+        "suite": "Barangay Imelda Aquino",
+        "city": "Bulan",
+        "zipcode": "4706",
+        "geo": {
+          "lat": "12.6714",
+          "lng": "123.8750"
+        }
       },
-      "phone": "0912-345-6789"
+      "phone": "09123456789",
+      "website": "maclean.org",
+      "company": {
+        "name": "Senosin Corp",
+        "catchPhrase": "Building the future",
+        "bs": "Innovative solutions"
+      }
     },
     {
       "id": 2,
       "name": "Jan Immanuel Ical",
-      "username": "jan_ical",
-      "email": "jan.ical@example.com",
+      "username": "janical",
+      "email": "jan@example.com",
       "address": {
         "street": "Matnog",
-        "suite": "Sorsogon",
-        "city": "Philippines"
+        "suite": "Municipality of Matnog",
+        "city": "Matnog",
+        "zipcode": "4708",
+        "geo": {
+          "lat": "12.5877",
+          "lng": "124.0873"
+        }
       },
-      "phone": "0912-345-6790"
+      "phone": "09234567890",
+      "website": "janical.org",
+      "company": {
+        "name": "Ical Industries",
+        "catchPhrase": "Leading innovation",
+        "bs": "Future-focused"
+      }
     },
     {
       "id": 3,
       "name": "Dea Glipones",
-      "username": "dea_glipones",
-      "email": "dea.glipones@example.com",
+      "username": "deaglipones",
+      "email": "dea@example.com",
       "address": {
         "street": "Bulan",
-        "suite": "Sorsogon",
-        "city": "Philippines"
+        "suite": "Municipality of Bulan",
+        "city": "Bulan",
+        "zipcode": "4706",
+        "geo": {
+          "lat": "12.6714",
+          "lng": "123.8750"
+        }
       },
-      "phone": "0912-345-6791"
-    },
-    {
-      "id": 4,
-      "name": "Mac Lean Sensoin",
-      "username": "mac_sensoin",
-      "email": "mac.sensoin@example.com",
-      "address": {
-        "street": "Bulan",
-        "suite": "Sorsogon",
-        "city": "Philippines"
-      },
-      "phone": "0912-345-6792"
+      "phone": "09345678901",
+      "website": "deaglipones.org",
+      "company": {
+        "name": "Glipones Group",
+        "catchPhrase": "Excellence in service",
+        "bs": "Customer first"
+      }
     }
   ],
   "posts": [
@@ -58,45 +79,15 @@
     },
     {
       "id": 2,
-      "userId": 1,
-      "title": "Tech Joke of the Day",
-      "body": "Why do programmers prefer dark mode? Because light attracts bugs! 😄 #TechHumor"
+      "userId": 2,
+      "title": "Matnog's Hidden Gems",
+      "body": "Exploring the untouched beaches and crystal clear waters of Matnog. A paradise waiting to be discovered."
     },
     {
       "id": 3,
-      "userId": 2,
-      "title": "Matnog Memories",
-      "body": "The sound of waves in Matnog is nature's lullaby. It's amazing how the sea can wash away all your worries."
-    },
-    {
-      "id": 4,
-      "userId": 2,
-      "title": "Life Quote",
-      "body": "Life is like a camera. Focus on what's important, capture the good times, develop from the negatives, and if things don't work out, take another shot!"
-    },
-    {
-      "id": 5,
       "userId": 3,
-      "title": "Bulan Adventures",
-      "body": "Exploring the hidden gems of Bulan, Sorsogon. Every corner tells a story, every smile shares a memory."
-    },
-    {
-      "id": 6,
-      "userId": 3,
-      "title": "Funny Moment",
-      "body": "Me: I'll start my diet tomorrow. Also me: *eats midnight snack* 🤣 #DietStruggles"
-    },
-    {
-      "id": 7,
-      "userId": 4,
-      "title": "Sorsogon Life",
-      "body": "The best things in life aren't things. They're moments shared with friends and family in our beautiful Sorsogon."
-    },
-    {
-      "id": 8,
-      "userId": 4,
-      "title": "Tech Life",
-      "body": "Debugging is like being a detective in a crime movie where you're also the murderer. 😅 #ProgrammingLife"
+      "title": "Bulan's Rich Culture",
+      "body": "The vibrant culture and traditions of Bulan make it a unique place to live and experience."
     }
   ],
   "comments": [
@@ -104,57 +95,15 @@
       "id": 1,
       "postId": 1,
       "name": "Jan Immanuel Ical",
-      "email": "jan.ical@example.com",
+      "email": "jan@example.com",
       "body": "Beautifully said! Barcelona is truly a gem."
     },
     {
       "id": 2,
       "postId": 1,
       "name": "Dea Glipones",
-      "email": "dea.glipones@example.com",
+      "email": "dea@example.com",
       "body": "I miss the food there! Especially the fresh seafood."
-    },
-    {
-      "id": 3,
-      "postId": 2,
-      "name": "Mac Lean Sensoin",
-      "email": "mac.sensoin@example.com",
-      "body": "Haha! That's why I always use dark mode! 😄"
-    },
-    {
-      "id": 4,
-      "postId": 3,
-      "name": "Mark John Ernacio",
-      "email": "mark.ernacio@example.com",
-      "body": "The sunset there is magical!"
-    },
-    {
-      "id": 5,
-      "postId": 4,
-      "name": "Dea Glipones",
-      "email": "dea.glipones@example.com",
-      "body": "This is so true! Love the camera analogy."
-    },
-    {
-      "id": 6,
-      "postId": 5,
-      "name": "Jan Immanuel Ical",
-      "email": "jan.ical@example.com",
-      "body": "Have you tried the local delicacies there?"
-    },
-    {
-      "id": 7,
-      "postId": 6,
-      "name": "Mac Lean Sensoin",
-      "email": "mac.sensoin@example.com",
-      "body": "Story of my life! 😂"
-    },
-    {
-      "id": 8,
-      "postId": 7,
-      "name": "Mark John Ernacio",
-      "email": "mark.ernacio@example.com",
-      "body": "Couldn't agree more! Sorsogon is home."
     }
   ]
 } 
