@@ -1,14 +1,15 @@
 {
   "users": [
     {
-      "id": 1,
+     "id": 1,
       "name": "Mac Lean Senosin",
       "username": "macsen",
-      "email": "macsen@example.com",
+      "email": "macsen@gmail.com",
       "address": {
-        "street": "Imelda Aquino",
-        "suite": "Barangay",
-        "city": "Bulan",
+        "country": "Philippines",
+        "province": "Sorsogon",
+        "municipality": "Bulan",
+        "barangay": "Imelda Aquino",
         "zipcode": "4706",
         "geo": {
           "lat": "12.6714",
@@ -27,11 +28,12 @@
       "id": 2,
       "name": "Jan Immanuel Ical",
       "username": "janical",
-      "email": "janical@example.com",
+      "email": "janical@gmail.com",
       "address": {
-        "street": "Sinibaran",
-        "suite": "Barangay",
-        "city": "Matnog",
+        "country": "Philippines",
+        "province": "Sorsogon",
+        "municipality": "Matnog",
+        "barangay": "Sinibaran",
         "zipcode": "4708",
         "geo": {
           "lat": "12.5877",
@@ -46,15 +48,15 @@
         "bs": "Creative Solutions"
       }
     },
-    {
-      "id": 3,
-      "name": "Dea Glipones",
+    {"id": 3,
+      "name": "Dea Glipneo",
       "username": "deaglip",
-      "email": "deaglip@example.com",
+      "email": "deaglip@gmail.com",
       "address": {
-        "street": "A. Bonifacio",
-        "suite": "Barangay",
-        "city": "Bulan",
+        "country": "Philippines",
+        "province": "Sorsogon",
+        "municipality": "Matnog",
+        "barangay": "Sinibaran",
         "zipcode": "4706",
         "geo": {
           "lat": "12.6714",
@@ -64,7 +66,7 @@
       "phone": "09345678901",
       "website": "deaglip.com",
       "company": {
-        "name": "Glipones Group",
+        "name": "Gliponeos Group",
         "catchPhrase": "Excellence in service",
         "bs": "Business Solutions"
       }
@@ -72,12 +74,13 @@
     {
       "id": 4,
       "name": "Mark John Ernacio",
-      "username": "markj_ernacio",
-      "email": "mark.ernacio@example.com",
+      "username": "markjohn",
+      "email": "markjohn@gmail.com",
       "address": {
-        "street": "Poblacion Central",
-        "suite": "Barangay",
-        "city": "Barcelona",
+        "country": "Philippines",
+        "province": "Sorsogon",
+        "municipality": "Barcelona",
+        "barangay": "Poblacion Central",
         "zipcode": "4712",
         "geo": {
           "lat": "12.8683",

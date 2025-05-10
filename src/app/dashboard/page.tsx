@@ -143,8 +143,11 @@ export default function DashboardPage() {
               <Button asChild className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-lg font-semibold shadow-lg transition-all duration-300">
                 <Link href="/users">Users</Link>
               </Button>
-              <Button asChild className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-lg font-semibold shadow-lg transition-all duration-300">
+              <Button asChild className="w-full sm:w-auto bg-yellow-600 hover:bg-yellow-700 text-lg font-semibold shadow-lg transition-all duration-300">
                 <Link href="/posts">Posts</Link>
+              </Button>
+              <Button asChild className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-lg font-semibold shadow-lg transition-all duration-300">
+                <Link href="/dashboard">Dashboard</Link>
               </Button>
             </div>
           </CardContent>

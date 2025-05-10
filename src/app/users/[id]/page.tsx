@@ -48,28 +48,17 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
     );
   }
 
-  const formatAddress = (address: any) => {
-    if (!address) return 'No address available';
-    
-    // Handle new format (Barangay, Municipality)
-    if (address.street.includes(',')) {
-      const [barangay, municipality] = address.street.split(',');
-      return `${barangay.trim()}, ${municipality.trim()}, ${address.suite}, ${address.city}`;
-    }
-    
-    // Handle old format
-    return `${address.street}, ${address.suite}, ${address.city}`;
-  };
-
   const getMapUrl = (address: any) => {
     if (!address) return '';
-    const query = encodeURIComponent(formatAddress(address));
+    const query = encodeURIComponent(
+      `${address.barangay}, ${address.municipality}, ${address.province}, ${address.country}`
+    );
     return `https://www.google.com/maps?q=${query}&output=embed`;
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-    <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto">
         <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl mb-8">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold text-white drop-shadow-lg text-center">
@@ -98,9 +87,9 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
                 <Skeleton className="h-8 w-3/4 bg-white/20" />
                 <Skeleton className="h-4 w-1/2 bg-white/20" />
                 <Skeleton className="h-4 w-2/3 bg-white/20" />
-        </div>
+              </div>
             </CardContent>
-      </Card>
+          </Card>
         ) : userData ? (
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
             <CardContent className="p-6">
@@ -119,10 +108,10 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
                   <p className="text-gray-300">
                     {userData.address && (
                       <>
-                        Barangay: {userData.address.street.split(',')[0]}<br />
-                        Municipality: {userData.address.street.split(',')[1]}<br />
-                        Province: {userData.address.suite}<br />
-                        Country: {userData.address.city}
+                        Barangay: {userData.address.barangay}<br />
+                        Municipality: {userData.address.municipality}<br />
+                        Province: {userData.address.province}<br />
+                        Country: {userData.address.country}
                       </>
                     )}
                   </p>
