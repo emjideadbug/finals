@@ -5,6 +5,7 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+// Updated layout for Vercel deployment
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
