@@ -3,11 +3,11 @@
     {
       "id": 1,
       "name": "Mac Lean Senosin",
-      "username": "maclean",
-      "email": "maclean@example.com",
+      "username": "macsen",
+      "email": "macsen@example.com",
       "address": {
         "street": "Imelda Aquino",
-        "suite": "Barangay Imelda Aquino",
+        "suite": "Barangay",
         "city": "Bulan",
         "zipcode": "4706",
         "geo": {
@@ -16,21 +16,21 @@
         }
       },
       "phone": "09123456789",
-      "website": "maclean.org",
+      "website": "macsen.com",
       "company": {
-        "name": "Senosin Corp",
-        "catchPhrase": "Building the future",
-        "bs": "Innovative solutions"
+        "name": "Senosin Tech",
+        "catchPhrase": "Innovating for the future",
+        "bs": "Technology Solutions"
       }
     },
     {
       "id": 2,
       "name": "Jan Immanuel Ical",
       "username": "janical",
-      "email": "jan@example.com",
+      "email": "janical@example.com",
       "address": {
-        "street": "Matnog",
-        "suite": "Municipality of Matnog",
+        "street": "Main Street",
+        "suite": "Apt 123",
         "city": "Matnog",
         "zipcode": "4708",
         "geo": {
@@ -39,21 +39,21 @@
         }
       },
       "phone": "09234567890",
-      "website": "janical.org",
+      "website": "janical.com",
       "company": {
-        "name": "Ical Industries",
-        "catchPhrase": "Leading innovation",
-        "bs": "Future-focused"
+        "name": "Ical Innovations",
+        "catchPhrase": "Building dreams",
+        "bs": "Creative Solutions"
       }
     },
     {
       "id": 3,
       "name": "Dea Glipones",
-      "username": "deaglipones",
-      "email": "dea@example.com",
+      "username": "deaglip",
+      "email": "deaglip@example.com",
       "address": {
-        "street": "Bulan",
-        "suite": "Municipality of Bulan",
+        "street": "Central Avenue",
+        "suite": "Unit 456",
         "city": "Bulan",
         "zipcode": "4706",
         "geo": {
@@ -62,11 +62,11 @@
         }
       },
       "phone": "09345678901",
-      "website": "deaglipones.org",
+      "website": "deaglip.com",
       "company": {
         "name": "Glipones Group",
         "catchPhrase": "Excellence in service",
-        "bs": "Customer first"
+        "bs": "Business Solutions"
       }
     }
   ],
@@ -81,13 +81,13 @@
       "id": 2,
       "userId": 2,
       "title": "Matnog's Hidden Gems",
-      "body": "Exploring the untouched beaches and crystal clear waters of Matnog. A paradise waiting to be discovered."
+      "body": "Exploring the untouched beauty of Matnog's beaches and natural wonders. A paradise waiting to be discovered."
     },
     {
       "id": 3,
       "userId": 3,
-      "title": "Bulan's Rich Culture",
-      "body": "The vibrant culture and traditions of Bulan make it a unique place to live and experience."
+      "title": "Bulan's Cultural Heritage",
+      "body": "The rich cultural heritage of Bulan, from its traditional festivals to its local cuisine, makes it a unique place to experience."
     }
   ],
   "comments": [
@@ -95,14 +95,14 @@
       "id": 1,
       "postId": 1,
       "name": "Jan Immanuel Ical",
-      "email": "jan@example.com",
+      "email": "janical@example.com",
       "body": "Beautifully said! Barcelona is truly a gem."
     },
     {
       "id": 2,
       "postId": 1,
       "name": "Dea Glipones",
-      "email": "dea@example.com",
+      "email": "deaglip@example.com",
       "body": "I miss the food there! Especially the fresh seafood."
     }
   ]
