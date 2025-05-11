@@ -29,9 +29,9 @@ export default function UserProfilePage() {
   };
 
   if (isLoading) {
-    return (
+  return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-        <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
             <CardContent className="p-6">
               <p className="text-gray-300 text-center">Loading user profile...</p>
@@ -136,8 +136,8 @@ export default function UserProfilePage() {
                               <Link href={`/posts/${post.id}`}>Read More</Link>
                             </Button>
                           </CardContent>
-                        </Card>
-                      ))}
+          </Card>
+        ))}
                     </div>
                   ) : (
                     <p className="text-gray-400 text-center">No posts found</p>
