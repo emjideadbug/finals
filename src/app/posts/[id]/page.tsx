@@ -17,6 +17,12 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     }),
   });
 
+  const { data: author } = useQuery({
+    queryKey: ['user', post?.userId],
+    queryFn: () => fetch(`/api/users/${post?.userId}`).then(res => res.json()),
+    enabled: !!post?.userId,
+  });
+
   const { data: comments, isLoading: isLoadingComments } = useQuery({
     queryKey: ['post-comments', resolvedParams.id],
     queryFn: () => fetch(`/api/comments?postId=${resolvedParams.id}`).then(res => res.json()),
@@ -44,11 +50,11 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
         <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl mb-8">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold text-white drop-shadow-lg text-center">
-              Post
+              Post Details
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-lg font-semibold shadow-lg transition-all duration-300">
                 <Link href="/">Home</Link>
               </Button>
@@ -62,58 +68,59 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
                 <Link href="/dashboard">Dashboard</Link>
               </Button>
             </div>
-          </CardContent>
-        </Card>
 
-        {isLoadingPost ? (
-          <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
-            <CardContent className="p-6">
+            {isLoadingPost ? (
               <div className="space-y-4">
                 <Skeleton className="h-8 w-3/4 bg-white/20" />
                 <Skeleton className="h-4 w-full bg-white/20" />
-                <Skeleton className="h-4 w-2/3 bg-white/20" />
               </div>
-            </CardContent>
-          </Card>
-        ) : post ? (
-          <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl mb-8">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold text-white">{post.title}</h2>
-                <p className="text-gray-300 text-lg">{post.body}</p>
+            ) : post ? (
+              <div className="bg-gray-800/50 rounded-lg p-6 shadow-lg mb-8">
+                {author && (
+                  <div className="flex items-center gap-2 mb-4 bg-gray-700/30 p-2 rounded-lg">
+                    <span className="text-sm text-gray-300">Posted by:</span>
+                    <Link href={`/users/${author.id}`} className="text-sm font-semibold text-blue-400 hover:text-blue-300">
+                      {author.name}
+                    </Link>
+                  </div>
+                )}
+                <h2 className="text-2xl font-bold text-white mb-4">{post.title}</h2>
+                <p className="text-gray-300">{post.body}</p>
               </div>
-            </CardContent>
-          </Card>
-        ) : null}
+            ) : null}
 
-        <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-white">Comments</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isLoadingComments ? (
-              <div className="space-y-4">
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="space-y-2">
-                    <Skeleton className="h-6 w-3/4 bg-white/20" />
-                    <Skeleton className="h-4 w-full bg-white/20" />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {comments?.map((comment: any) => (
-                  <div key={comment.id} className="bg-gray-700/30 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-sm font-semibold text-blue-400">
-                        {comment.name}
-                      </span>
-                    </div>
-                    <p className="text-gray-300">{comment.body}</p>
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="mt-8">
+              <h3 className="text-2xl font-bold text-white mb-4">Comments</h3>
+              {isLoadingComments ? (
+                <div className="space-y-4">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Card key={i} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
+                      <CardContent className="p-4">
+                        <Skeleton className="h-4 w-1/4 bg-white/20 mb-2" />
+                        <Skeleton className="h-4 w-full bg-white/20" />
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : comments?.length > 0 ? (
+                <div className="space-y-4">
+                  {comments.map((comment: any) => (
+                    <Card key={comment.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-sm text-gray-300">By:</span>
+                          <span className="text-sm font-semibold text-blue-400">{comment.name}</span>
+                          <span className="text-sm text-gray-400">({comment.email})</span>
+                        </div>
+                        <p className="text-gray-300">{comment.body}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-400 text-center">No comments found</p>
+              )}
+            </div>
           </CardContent>
         </Card>
       </div>
