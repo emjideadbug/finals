@@ -26,9 +26,9 @@ export default function UsersPage() {
   }
 
   if (error) {
-  return (
+    return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-    <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
             <CardContent className="p-6">
               <p className="text-red-400 text-center">Failed to load users.</p>
@@ -68,14 +68,15 @@ export default function UsersPage() {
                 <Card key={user.id} className="bg-gray-800/50 border-gray-700/50 shadow-lg w-full max-w-sm">
                   <CardContent className="p-4">
                     <h2 className="text-xl font-bold text-white">{user.name}</h2>
+                    <p className="text-gray-300">Username: {user.username}</p>
                     <p className="text-gray-300">Email: {user.email}</p>
                     <p className="text-gray-300">Phone: {user.phone}</p>
                     {user.address && (
                       <div className="mt-2">
-                        <p className="text-gray-300">Country: {user.address.country}</p>
-                        <p className="text-gray-300">Province: {user.address.province}</p>
-                        <p className="text-gray-300">Municipality: {user.address.municipality}</p>
-                        <p className="text-gray-300">Barangay: {user.address.barangay}</p>
+                        <p className="text-gray-300">Street: {user.address.street}</p>
+                        <p className="text-gray-300">Suite: {user.address.suite}</p>
+                        <p className="text-gray-300">City: {user.address.city}</p>
+                        <p className="text-gray-300">Zipcode: {user.address.zipcode}</p>
                       </div>
                     )}
                     <div className="mt-4">
@@ -84,8 +85,8 @@ export default function UsersPage() {
                       </Button>
                     </div>
                   </CardContent>
-          </Card>
-        ))}
+                </Card>
+              ))}
             </div>
           </CardContent>
         </Card>

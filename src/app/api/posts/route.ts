@@ -1,41 +1,46 @@
 import { NextResponse } from 'next/server';
-import customData from '@/data/customData.json';
+
+const fetchWithRetry = async (url: string, retries = 3) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url, {
+        next: { revalidate: 60 }, // Cache for 60 seconds
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      return response;
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      // Wait for 1 second before retrying
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+};
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const userId = searchParams.get('userId');
+  try {
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
 
-  // Function to get author information
-  const getAuthorInfo = (postUserId: number) => {
-    const author = customData.users.find(user => user.id === postUserId);
-    return author ? {
-      id: author.id,
-      name: author.name,
-      username: author.username
-    } : null;
-  };
+    const response = await fetchWithRetry('https://jsonplaceholder.typicode.com/posts');
+    let posts = await response.json();
 
-  // Function to get comments for a post
-  const getPostComments = (postId: number) => {
-    return customData.comments.filter(comment => comment.postId === postId);
-  };
+    if (userId) {
+      posts = posts.filter((post: any) => post.userId === parseInt(userId));
+    }
 
-  if (userId) {
-    const filteredPosts = customData.posts
-      .filter(post => post.userId === parseInt(userId))
-      .map(post => ({
-        ...post,
-        author: getAuthorInfo(post.userId),
-        comments: getPostComments(post.id)
-      }));
-    return NextResponse.json(filteredPosts);
+    return NextResponse.json(posts);
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return new NextResponse(
+      JSON.stringify({ error: 'Failed to fetch posts' }), 
+      { status: 500 }
+    );
   }
-
-  const postsWithAuthorsAndComments = customData.posts.map(post => ({
-    ...post,
-    author: getAuthorInfo(post.userId),
-    comments: getPostComments(post.id)
-  }));
-
-  return NextResponse.json(postsWithAuthorsAndComments);
 } 

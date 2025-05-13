@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
-import customData from '@/data/customData.json';
 
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const user = customData.users.find(user => user.id === parseInt(params.id));
+  const response = await fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`);
   
-  if (!user) {
+  if (!response.ok) {
     return new NextResponse('User not found', { status: 404 });
   }
 
+  const user = await response.json();
   return NextResponse.json(user);
 } 

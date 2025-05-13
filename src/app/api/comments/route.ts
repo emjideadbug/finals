@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
-import customData from '@/data/customData.json';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const postId = searchParams.get('postId');
 
+  const response = await fetch('https://jsonplaceholder.typicode.com/comments');
+  let comments = await response.json();
+
   if (postId) {
-    const filteredComments = customData.comments.filter(comment => comment.postId === parseInt(postId));
-    return NextResponse.json(filteredComments);
+    comments = comments.filter(comment => comment.postId === parseInt(postId));
   }
 
-  return NextResponse.json(customData.comments);
+  return NextResponse.json(comments);
 } 

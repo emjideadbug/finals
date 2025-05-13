@@ -23,15 +23,15 @@ export default function UserProfilePage() {
   const getMapUrl = (address: any) => {
     if (!address) return '';
     const query = encodeURIComponent(
-      `${address.barangay}, ${address.municipality}, ${address.province}, ${address.country}`
+      `${address.street}, ${address.suite}, ${address.city}, ${address.zipcode}`
     );
     return `https://www.google.com/maps?q=${query}&output=embed`;
   };
 
   if (isLoading) {
-  return (
+    return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
-    <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl">
             <CardContent className="p-6">
               <p className="text-gray-300 text-center">Loading user profile...</p>
@@ -86,16 +86,16 @@ export default function UserProfilePage() {
             <div className="bg-gray-800/50 rounded-lg p-6 shadow-lg">
               <h2 className="text-2xl font-bold text-white mb-4">{user.name}</h2>
               <div className="space-y-4">
+                <p className="text-gray-300"><span className="font-semibold">Username:</span> {user.username}</p>
                 <p className="text-gray-300"><span className="font-semibold">Email:</span> {user.email}</p>
                 <p className="text-gray-300"><span className="font-semibold">Phone:</span> {user.phone}</p>
                 <p className="text-gray-300"><span className="font-semibold">Website:</span> {user.website}</p>
                 {user.address && (
                   <div className="mt-4">
                     <h3 className="text-xl font-semibold text-white mb-2">Address</h3>
-                    <p className="text-gray-300"><span className="font-semibold">Country:</span> {user.address.country}</p>
-                    <p className="text-gray-300"><span className="font-semibold">Province:</span> {user.address.province}</p>
-                    <p className="text-gray-300"><span className="font-semibold">Municipality:</span> {user.address.municipality}</p>
-                    <p className="text-gray-300"><span className="font-semibold">Barangay:</span> {user.address.barangay}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Street:</span> {user.address.street}</p>
+                    <p className="text-gray-300"><span className="font-semibold">Suite:</span> {user.address.suite}</p>
+                    <p className="text-gray-300"><span className="font-semibold">City:</span> {user.address.city}</p>
                     <p className="text-gray-300"><span className="font-semibold">Zipcode:</span> {user.address.zipcode}</p>
                     <div className="mt-4">
                       <h4 className="text-lg font-semibold text-white mb-2">Location</h4>
@@ -136,8 +136,8 @@ export default function UserProfilePage() {
                               <Link href={`/posts/${post.id}`}>Read More</Link>
                             </Button>
                           </CardContent>
-          </Card>
-        ))}
+                        </Card>
+                      ))}
                     </div>
                   ) : (
                     <p className="text-gray-400 text-center">No posts found</p>
