@@ -1,46 +1,28 @@
 import { NextResponse } from 'next/server';
 
-const fetchWithRetry = async (url: string, retries = 3) => {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const response = await fetch(url, {
-        next: { revalidate: 60 }, // Cache for 60 seconds
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      return response;
-    } catch (error) {
-      if (i === retries - 1) throw error;
-      // Wait for 1 second before retrying
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    }
-  }
-};
-
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { searchParams } = new URL(request.url);
-    const postId = searchParams.get('postId');
+    // Await the params object
+    const resolvedParams = await params;
 
-    const response = await fetchWithRetry('https://jsonplaceholder.typicode.com/comments');
-    let comments = await response.json();
+    // Fetch the user data
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${resolvedParams.id}`);
 
-    if (postId) {
-      comments = comments.filter((comment: any) => comment.postId === parseInt(postId));
+    if (!response.ok) {
+      return new NextResponse('User not found', { status: 404 });
     }
 
-    return NextResponse.json(comments);
+    const user = await response.json();
+
+    return NextResponse.json(user);
   } catch (error) {
-    console.error('Error fetching comments:', error);
+    console.error('Error fetching user:', error);
     return new NextResponse(
-      JSON.stringify({ error: 'Failed to fetch comments' }), 
+      JSON.stringify({ error: 'Failed to fetch user' }),
       { status: 500 }
     );
   }
-} 
+}
