@@ -106,8 +106,3 @@ lib/         → API helpers, map logic, and config
 ## 🌐 Live Demo
 
 👉 [Visit the Deployed Site](https://webtechfinals-zeta.vercel.app/)
-
-## 📄 License
-
-This project is for academic purposes under the College of Information and Communications Technology, Sorsogon State University – Bulan Campus.
-......
