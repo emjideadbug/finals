@@ -6,17 +6,34 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Define TypeScript interfaces for better type safety
+interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 export default function PostsPage() {
-  const { data: posts, isLoading, error } = useQuery({
+  // Fetch posts with proper typing
+  const { data: posts, isLoading, error } = useQuery<Post[]>({
     queryKey: ['posts'],
     queryFn: () => fetch('/api/posts').then(res => res.json()),
   });
 
-  const { data: users } = useQuery({
+  // Fetch users for author information
+  const { data: users } = useQuery<User[]>({
     queryKey: ['users'],
     queryFn: () => fetch('/api/users').then(res => res.json()),
   });
 
+  // Handle error state
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
@@ -36,6 +53,7 @@ export default function PostsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
       <div className="max-w-4xl mx-auto">
+        {/* Header Card with Navigation */}
         <Card className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-2xl mb-8">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold text-white drop-shadow-lg text-center">
@@ -60,8 +78,10 @@ export default function PostsPage() {
           </CardContent>
         </Card>
 
-      <div className="grid gap-4">
+        {/* Posts Grid */}
+        <div className="grid gap-4">
           {isLoading ? (
+            // Loading skeleton state
             Array.from({ length: 4 }).map((_, i) => (
               <Card key={i} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl">
                 <CardContent className="p-6">
@@ -73,8 +93,9 @@ export default function PostsPage() {
               </Card>
             ))
           ) : (
-            posts?.map((post: any) => {
-              const author = users?.find((user: any) => user.id === post.userId);
+            // Render posts with author information
+            posts?.map((post: Post) => {
+              const author = users?.find(user => user.id === post.userId);
               return (
                 <Card key={post.id} className="backdrop-blur-md bg-gray-800/50 border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardContent className="p-6">
@@ -90,7 +111,7 @@ export default function PostsPage() {
                       </Button>
                     </div>
                   </CardContent>
-          </Card>
+                </Card>
               );
             })
           )}
