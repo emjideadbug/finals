@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🌐 Dynamic Web Application – WebTech Final Project
 
-First, run the development server:
+A modern, responsive social networking web application built using **Next.js 14**, **Tailwind CSS**, and **React Query**, with mock data APIs and Google Maps integration.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Project Description
+
+This full-stack web application simulates a dynamic social platform featuring:
+
+- User profiles
+- Dynamic posts and comments
+- Embedded Google Maps for user location visualization
+
+It uses **Next.js App Router** and **React Query** for client-side data fetching and caching. The backend is simulated through local JSON data served via custom API routes (e.g., `/api/users`, `/api/posts`).
+
+The UI is styled using **Tailwind CSS** with component support from **shadcn/ui**. The design is responsive and supports dark mode.
+
+### 🌍 Google Maps Integration
+
+User location is derived from profile addresses and displayed on an interactive map using embedded coordinates.
+
+## 📁 Project Structure
+
+```
+app/         → Route-based pages (e.g., /users, /posts)
+components/  → Reusable UI components (cards, buttons, etc.)
+data/        → Static JSON data (users, posts, comments)
+lib/         → API helpers, map logic, and config
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Setup & Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install Node.js (LTS)**  
+   Download and install from [https://nodejs.org/en](https://nodejs.org/en).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Verify Installation**
 
-## Learn More
+   ```bash
+   node -v
+   npm -v
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Create Next App**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npx create-next-app@latest your-project-name
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   During setup, choose:
 
-## Deploy on Vercel
+   - TypeScript: **Yes**
+   - ESLint: **Yes**
+   - Tailwind CSS: **Yes**
+   - Use `src/` directory: **Yes**
+   - App Router: **Yes**
+   - Import alias: **No**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Install Required Packages**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm install @tanstack/react-query react react-dom \
+   @radix-ui/react-label @radix-ui/react-slot \
+   class-variance-authority clsx lucide-react tailwind-merge
+   ```
+
+5. **Initialize shadcn/ui**
+
+   Scaffold reusable components using the [shadcn/ui CLI](https://ui.shadcn.com/).
+
+6. **Configure Tailwind CSS**
+
+   If missing, manually add `tailwind.config.js` and `postcss.config.js`.
+
+   Ensure `globals.css` includes:
+
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+
+7. **Google Map Embed**
+
+   A `GoogleMapEmbed.tsx` component was added to `src/app/components/` to display dynamic maps using address data.
+
+8. **Run the App**
+
+   ```bash
+   npm run dev
+   ```
+
+## 👨‍💻 Team Members & Contributions
+
+- **Mark John Ernacio** – *Lead Developer*  
+  Project setup, full implementation, UI, API routes, and Google Maps integration.
+
+- **Mac Lean Senosin** – *Testing & Feedback*  
+  Assisted with device testing, responsiveness, and UI feedback.
+
+- **Jan Immanuel Ical** – *Research & Theme*  
+  Contributed visual references and ensured cultural relevance to Sorsogon.
+
+- **Dea Gliponeo** – *Documentation*  
+  Reviewed and improved technical documentation.
+
+## 🌐 Live Demo
+
+👉 [Visit the Deployed Site](https://webtechfinals-zeta.vercel.app/)
+
+## 📄 License
+
+This project is for academic purposes under the College of Information and Communications Technology, Sorsogon State University – Bulan Campus.
