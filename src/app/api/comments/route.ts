@@ -1,27 +1,32 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request) {
   try {
-    // Await the params object
-    const resolvedParams = await params;
+    const { searchParams } = new URL(request.url);
+    const postId = searchParams.get('postId');
 
-    // Fetch the user data
-    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${resolvedParams.id}`);
-
-    if (!response.ok) {
-      return new NextResponse('User not found', { status: 404 });
+    let url = 'https://jsonplaceholder.typicode.com/comments';
+    if (postId) {
+      url += `?postId=${postId}`;
     }
 
-    const user = await response.json();
+    const response = await fetch(url, {
+      next: { revalidate: 60 }, // Cache for 60 seconds
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    return NextResponse.json(user);
+    if (!response.ok) {
+      return new NextResponse('Failed to fetch comments', { status: response.status });
+    }
+
+    const comments = await response.json();
+    return NextResponse.json(comments);
   } catch (error) {
-    console.error('Error fetching user:', error);
+    console.error('Error fetching comments:', error);
     return new NextResponse(
-      JSON.stringify({ error: 'Failed to fetch user' }),
+      JSON.stringify({ error: 'Failed to fetch comments' }),
       { status: 500 }
     );
   }
