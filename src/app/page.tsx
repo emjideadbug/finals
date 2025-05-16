@@ -12,7 +12,7 @@ export default function Home() {
           </CardTitle>
           <p className="text-sm text-gray-400 text-center mt-2">
             Built with Next.js and Tailwind CSS
-          </p>
+          </p>  
         </CardHeader>
         <CardContent>
           <p className="text-lg text-gray-300 mb-8 text-center">
