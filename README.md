@@ -107,4 +107,4 @@ lib/         → API helpers, map logic, and config
 
 👉 [Visit the Deployed Site](https://webtechfinals-zeta.vercel.app/)
 
-👉 [Visit our Group Presentation](https://drive.google.com/drive/folders/1T5ujQv3A1v5KV_wY1CKjvN1bCKg2kDoH)
+👉 [Visit our Group 8 Presentation](https://drive.google.com/drive/folders/1T5ujQv3A1v5KV_wY1CKjvN1bCKg2kDoH)
