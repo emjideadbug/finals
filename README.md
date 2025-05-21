@@ -106,7 +106,7 @@ lib/         → API helpers, map logic, and config
 ## 🌐 Live Demo
 
 ## Visit the Deployed Site
-https://github.com/emjideadbug/finals
+https://finals-dun.vercel.app
 
 ## Visit our Group Presentation
 https://drive.google.com/drive/folders/1T5ujQv3A1v5KV_wY1CKjvN1bCKg2kDoH
